@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  play_type: MyString
+  description: MyText
+  author: MyString
+  release_date: 2020-12-19
+
+two:
+  title: MyString
+  play_type: MyString
+  description: MyText
+  author: MyString
+  release_date: 2020-12-19
