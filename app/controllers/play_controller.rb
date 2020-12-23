@@ -6,6 +6,5 @@ class PlayController < ApplicationController
   def show
     @play = Play.includes(:speeches).find(params[:id])
 
-
   end
 end
