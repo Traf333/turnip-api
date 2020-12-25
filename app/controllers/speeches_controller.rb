@@ -1,6 +1,6 @@
 class SpeechesController < ApplicationController
   before_action :set_speech, only: [:show, :edit, :update, :destroy]
-  skip_forgery_protection only: :update
+  skip_forgery_protection only: [:update, :destroy]
 
   # GET /speeches
   # GET /speeches.json
