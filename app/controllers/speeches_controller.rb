@@ -5,7 +5,7 @@ class SpeechesController < ApplicationController
   # GET /speeches
   # GET /speeches.json
   def index
-    @speeches = Speech.all
+    @speeches = Speech.includes(:audio_attachment).where(play_id: params[:play_id])
   end
 
   # GET /speeches/1
@@ -63,13 +63,14 @@ class SpeechesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_speech
-      @speech = Speech.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def speech_params
-      params.fetch(:speech, {}).permit!
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_speech
+    @speech = Speech.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def speech_params
+    params.fetch(:speech, {}).permit!
+  end
 end
