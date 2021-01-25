@@ -5,7 +5,10 @@ class SpeechesController < ApplicationController
   # GET /speeches
   # GET /speeches.json
   def index
-    @speeches = Speech.includes(:audio_attachment).where(play_id: params[:play_id]).order(created_at: :asc)
+    scope = Speech.includes(:audio_attachment).where(play_id: params[:play_id])
+    scope = scope.where('updated_at > ?', params[:sync_date]) if params[:sync_date]
+
+    @speeches = scope.order(created_at: :asc)
   end
 
   # GET /speeches/1
