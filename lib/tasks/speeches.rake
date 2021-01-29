@@ -9,3 +9,15 @@ task :import_speeches, [:filepath] => :environment do |_task, args|
   )
   puts "Uploaded: #{speeches.size} speeches"
 end
+
+task :import_kislorod, [:filepath] => :environment do |_task, args|
+  txt = File.read('lib/assets/kislorod.txt')
+  author, title, description, *speeches = txt.split("\n").filter(&:present?)
+
+  play = Play.create!(title: title, author: author, description: description, roles: ["Оля", "Юра", "Камилла", "Игорь", "Люба", "Сергей", "Настя"])
+  Speech.transaction do
+    speeches.each { |s| play.speeches.create!(text: s) }
+  end
+
+  puts "Uploaded: #{speeches.size} speeches"
+end
