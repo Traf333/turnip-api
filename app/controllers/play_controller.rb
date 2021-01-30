@@ -1,6 +1,6 @@
 class PlayController < ApplicationController
   def index
-    render json: Play.all.as_json(only: [:id, :_id, :title, :updated_at, :roles])
+    render json: Play.all.as_json(only: [:id, :_id, :title, :description, :author, :updated_at, :roles])
   end
 
   def sync
