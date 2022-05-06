@@ -1,20 +1,20 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '3.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 6'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.1'
+gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma'
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+gem 'sass-rails'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
+gem 'webpacker'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -27,12 +27,8 @@ gem 'jbuilder', '~> 2.7'
 #
 
 gem 'activeadmin'
-
-# Plus integrations with:
 gem 'devise'
-gem 'cancancan'
-gem 'draper'
-gem 'pundit'
+# Plus integrations with:
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
