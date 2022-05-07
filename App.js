@@ -1,89 +1,98 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React from 'react'
+import { StoreContext } from 'storeon/react'
+import { Text, View, TouchableOpacity, StyleSheet, StatusBar } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
+import { Ionicons } from '@expo/vector-icons'
+import HomeScreen from './screens/HomeScreen'
+import TurnipScreen from './screens/TurnipScreen'
+import EditSpeechScreen from './screens/EditSpeechScreen'
+import { resetDatabase } from './lib/database'
+import { store } from './stores'
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import Section from './src/components/Section';
-
-const Colors = {
-  primary: '#1292B4',
-  white: '#FFF',
-  lighter: '#F3F3F3',
-  light: '#DAE1E7',
-  dark: '#444',
-  darker: '#222',
-  black: '#000',
-};
-
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+function SettingsScreen() {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            <Text style={styles.highlight}>App.js</Text>
-          </Section>
-          <Section title="See Your Changes">
-            <Text style={styles.highlight}>App.js</Text>
-          </Section>
-          <Section title="Debug">
-            <Text style={styles.highlight}>App.js</Text>
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <Text style={styles.highlight}>App.js</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+    <View style={styles.container}>
+      <TouchableOpacity onPress={resetDatabase} style={styles.button}>
+        <Text style={styles.buttonText}>Стереть данные</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+const HomeStack = createStackNavigator()
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={HomeScreen} options={{ title: 'Репы' }} />
+      <HomeStack.Screen
+        name="TurnipScreen"
+        component={TurnipScreen}
+        options={({ route }) => ({ title: route.params.title })}
+      />
+      <HomeStack.Screen
+        name="EditSpeechScreen"
+        component={EditSpeechScreen}
+        options={{
+          title: 'Редактирование речи',
+        }}
+
+      />
+    </HomeStack.Navigator>
+  )
+}
+
+const Tab = createBottomTabNavigator()
+
+
+export default function App() {
+  return (
+    <StoreContext.Provider value={store}>
+
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+              let icons = {
+                Home: 'newspaper-outline',
+                Settings: 'options-outline',
+              }
+
+              return <Ionicons name={icons[route.name]} size={size} color={color} />
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+            keyboardHidesTabBar: true
+          }}
+        >
+          <Tab.Screen name="Home" component={HomeStackScreen} />
+          <Tab.Screen name="Settings" component={SettingsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </StoreContext.Provider>
+  )
+}
+
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+    padding: 30,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  button: {
+    backgroundColor: 'blue',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  buttonText: {
+    fontSize: 22,
+    color: 'white',
 
-export default App;
+  },
+})
+
