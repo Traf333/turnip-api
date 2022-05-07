@@ -1,16 +1,33 @@
 import React from 'react';
-import {Modal as NativeModal, ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Modal as NativeModal,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-const Modal = ({visible, onRequestClose, onDismiss, onPressOut, children, transparent}) => (
-
+const Modal = ({
+  visible,
+  onRequestClose,
+  onDismiss,
+  onPressOut,
+  children,
+  transparent,
+}) => (
   <NativeModal
     transparent={transparent}
     visible={visible}
     onRequestClose={onRequestClose}
-    onDismiss={onDismiss}
-  >
-    <TouchableOpacity style={styles.container} activeOpacity={1} onPressOut={onPressOut}>
-      <ScrollView directionalLockEnabled={true} contentContainerStyle={styles.scrollModal}>
+    onDismiss={onDismiss}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={1}
+      onPressOut={onPressOut}>
+      <ScrollView
+        directionalLockEnabled={true}
+        contentContainerStyle={styles.scrollModal}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>{children}</View>
         </View>

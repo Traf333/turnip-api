@@ -1,37 +1,60 @@
-import React, { useEffect } from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { useStoreon } from 'storeon/react'
-import Loader from '../components/Loader'
-import { elevationShadowStyle } from '../lib/styles'
+import React, {useEffect} from 'react';
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import {useStoreon} from 'storeon/react';
+import Loader from '../components/Loader';
+import {elevationShadowStyle} from '../lib/styles';
 
-const Item = ({ title, author, description, onPress }) => (
+const Item = ({title, author, description, onPress}) => (
   <View style={[styles.item, styles.shadow]}>
     <TouchableOpacity onPress={onPress}>
-      <View><Text style={styles.title}>{title}</Text></View>
-      {author && <View><Text style={styles.author}>{author}</Text></View>}
-      {description && <View><Text style={styles.description}>{description}</Text></View>}
+      <View>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+      {author && (
+        <View>
+          <Text style={styles.author}>{author}</Text>
+        </View>
+      )}
+      {description && (
+        <View>
+          <Text style={styles.description}>{description}</Text>
+        </View>
+      )}
     </TouchableOpacity>
   </View>
-)
+);
 
-export default function App({ navigation }) {
-  const { dispatch, turnips } = useStoreon('turnips')
+export default function App({navigation}) {
+  const {dispatch, turnips} = useStoreon('turnips');
 
   useEffect(() => {
-    dispatch('turnips/fetchAll')
-  }, [])
+    dispatch('turnips/fetchAll');
+  }, []);
 
-  const renderItem = ({ item }) => <Item {...item}
-                                         onPress={() => navigation.navigate('TurnipScreen', item)} />
+  const renderItem = ({item}) => (
+    <Item {...item} onPress={() => navigation.navigate('TurnipScreen', item)} />
+  );
 
-  if (!turnips) return <Loader />
+  if (!turnips) {
+    return <Loader />;
+  }
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList data={turnips} renderItem={renderItem} keyExtractor={item => item.id.toString()} />
+      <FlatList
+        data={turnips}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+      />
     </SafeAreaView>
-  )
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -50,11 +73,11 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     fontStyle: 'italic',
-    color: '#666'
+    color: '#666',
   },
   author: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#666'
+    color: '#666',
   },
-})
+});
