@@ -21,3 +21,15 @@ task :import_kislorod, [:filepath] => :environment do |_task, args|
 
   puts "Uploaded: #{speeches.size} speeches"
 end
+
+task :import_khpp, [:filepath] => :environment do |_task, args|
+  txt = File.read('lib/assets/khpp.txt')
+  lines = txt.split("\r")
+
+  play = Play.create!(title: 'ХПП', author: "Автор Петрович", description: "Спект 6 человек", roles: ["САМОЙЛОВ", "КАТЯ", "ТИМУР", "КОСТЯ", "АНТОН", "ЛИЗА"])
+  Speech.transaction do
+    lines.each { |s| play.speeches.create!(text: s) }
+  end
+
+  puts "Uploaded: #{play.speeches.size} speeches"
+end
