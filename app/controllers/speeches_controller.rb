@@ -32,10 +32,8 @@ class SpeechesController < ApplicationController
 
     respond_to do |format|
       if @speech.save
-        format.html { redirect_to @speech, notice: 'Speech was successfully created.' }
         format.json { render :show, status: :created, location: @speech }
       else
-        format.html { render :new }
         format.json { render json: @speech.errors, status: :unprocessable_entity }
       end
     end
@@ -46,10 +44,8 @@ class SpeechesController < ApplicationController
   def update
     respond_to do |format|
       if @speech.update(speech_params)
-        format.html { redirect_to @speech, notice: 'Speech was successfully updated.' }
         format.json { render :show, status: :ok, location: @speech }
       else
-        format.html { render :edit }
         format.json { render json: @speech.errors, status: :unprocessable_entity }
       end
     end
@@ -60,7 +56,6 @@ class SpeechesController < ApplicationController
   def destroy
     @speech.destroy
     respond_to do |format|
-      format.html { redirect_to speeches_url, notice: 'Speech was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
