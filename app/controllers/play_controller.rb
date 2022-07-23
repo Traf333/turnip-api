@@ -8,11 +8,6 @@ class PlayController < ApplicationController
   end
 
   def show
-    @play = Play.includes(:speeches).find(params[:id])
-    @speeches = @play.speeches
-    if params[:sync_date]
-      @speeches = @speeches.where('updated_at > ?', params[:sync_date])
-    end
-
+    @play = Play.find(params[:id])
   end
 end
