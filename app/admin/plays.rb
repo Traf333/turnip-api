@@ -21,6 +21,7 @@ ActiveAdmin.register Play do
       f.input :description
       f.input :author
       f.input :roles_list
+      f.input :active
       f.input :source_from_file, as: :file
     end
 
