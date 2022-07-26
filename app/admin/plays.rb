@@ -5,7 +5,7 @@ ActiveAdmin.register Play do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :title, :source_from_file, :description, :author, :release_date, :roles_list
+  permit_params :title, :source_from_file, :description, :author, :release_date, :roles_list, :active
   #
   # or
   #
