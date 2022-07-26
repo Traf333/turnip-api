@@ -1,5 +1,5 @@
 class AddReadonlyToPlays < ActiveRecord::Migration[6.1]
   def change
-    add_column :plays, :active, :boolean, default: false
+    add_column :plays, :readonly, :boolean, default: false
   end
 end
