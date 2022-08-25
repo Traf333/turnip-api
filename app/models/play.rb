@@ -20,7 +20,7 @@ class Play < ApplicationRecord
     lines = txt.split("\r")
     Speech.transaction do
       speeches.destroy_all
-      lines.each { |s| speeches.create!(text: s) }
+      lines.each { |s| speeches.create!(text: s.strip) if s.strip.length > 1 }
     end
   end
 end
